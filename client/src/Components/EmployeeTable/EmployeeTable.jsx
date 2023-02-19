@@ -12,11 +12,6 @@ const EmployeeTable = ({ employees, onDelete, onChange, randomNr }) => {
   employee => employee.level.toLowerCase().includes(searchLevel.toLowerCase()) && employee.position.toLowerCase().includes(searchPosition.toLowerCase())
   )
 
-  /*const filterPosition = employees.filter(
-    ({position}) => position.toLowerCase().includes(searchPosition.toLowerCase())
-  )*/
-
-
   return (
   <div className="EmployeeTable">
     <table>
