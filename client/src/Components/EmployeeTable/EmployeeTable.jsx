@@ -22,9 +22,7 @@ const EmployeeTable = ({ employees, onDelete, onChange, randomNr }) => {
     <table>
       <thead>
         <tr>
-          <th>First name</th>
-          <th>Middle name</th>
-          <th>Last name</th>
+          <th>Name</th>
           <th>Present</th>
           <th>Level<input 
               type='url' 
@@ -35,17 +33,15 @@ const EmployeeTable = ({ employees, onDelete, onChange, randomNr }) => {
               type='text'
               value={searchPosition}
               onChange={({target}) => setSearchPosition(target.value)}
-              placeholder="filter Position"></input></th>
-              
+              placeholder="filter Position"></input></th>              
           
         </tr>
       </thead>
       <tbody>
         {employeeDisplay.map((employee) => (
           <tr key={employee._id}>
-            <td>{employee.firstName}</td>
-            <td>{employee.middleName}</td>            
-            <td>{employee.lastName}</td>
+            <td>{employee.name}</td>
+           
             <td><form>
               <input 
               type='checkbox'
@@ -55,7 +51,6 @@ const EmployeeTable = ({ employees, onDelete, onChange, randomNr }) => {
               </form></td>
             <td>{employee.level}</td>
             <td>{employee.position}</td>
-            <td>{employee.height = randomNr}</td>
             <td>
               <Link to={`/update/${employee._id}`}>
                 <button type="button">Update</button>

@@ -4,9 +4,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const EmployeeSchema = new Schema({
-  firstName: String,
-  middleName: String,
-  lastName: String,
+  name: String,
   level: String,
   position: String,
   present: Boolean,
