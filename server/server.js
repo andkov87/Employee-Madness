@@ -57,7 +57,7 @@ app.get("/api/equipments/:id", async (req, res) => {
 });
 
 app.get('/robert', async (req, res) => {
-  const roberts = await EmployeeModel.find({firstName: /^Robert/})
+  const roberts = await EmployeeModel.find({name: /^Robert/})
   return res.json(roberts)
 
 })
