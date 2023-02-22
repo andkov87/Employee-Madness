@@ -1,20 +1,8 @@
 import { Link } from "react-router-dom";
-import {useState} from 'react';
 import "./EmployeeTable.css";
 
 
-const EmployeeTable = ({ employees, onDelete, onChange, randomNr }) => {
-
-  const [searchLevel, setSearchLevel] = useState('')
-  const [searchPosition, setSearchPosition] = useState('')
-
-  const employeeDisplay = employees.filter(
-  employee => employee.level.toLowerCase().includes(searchLevel.toLowerCase()) && employee.position.toLowerCase().includes(searchPosition.toLowerCase())
-  )
-
-  /*const filterPosition = employees.filter(
-    ({position}) => position.toLowerCase().includes(searchPosition.toLowerCase())
-  )*/
+const EmployeeTable = ({ employees, onDelete, onChange, sortLevel, sortPosition}) => {
 
 
   return (
@@ -24,24 +12,20 @@ const EmployeeTable = ({ employees, onDelete, onChange, randomNr }) => {
         <tr>
           <th>Name</th>
           <th>Present</th>
-          <th>Level<input 
-              type='url' 
-              value={searchLevel}
-              onChange={({target}) => setSearchLevel(target.value)}
+          <th>Level<input
+              type='text'
+              onChange={e => sortLevel(e)}
               placeholder="filter Level"></input></th>
           <th>Position<input
               type='text'
-              value={searchPosition}
-              onChange={({target}) => setSearchPosition(target.value)}
-              placeholder="filter Position"></input></th>              
-          
+              onChange={e => sortPosition(e)}
+              placeholder="filter Position"></input></th>         
         </tr>
       </thead>
       <tbody>
-        {employeeDisplay.map((employee) => (
+        {employees.map((employee) => (
           <tr key={employee._id}>
-            <td>{employee.name}</td>
-           
+            <td>{employee.name}</td>           
             <td><form>
               <input 
               type='checkbox'

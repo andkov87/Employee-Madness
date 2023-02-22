@@ -67,6 +67,20 @@ app.get('/missing', async (req, res) => {
   return res.json(missingEmployee)
 })
 
+app.get("/position", async (req, res) => {
+  const query = req.query.search
+
+  const sortedEmployees = await EmployeeModel.find({ position: {$regex: `^${query}`, $options: "i"}})
+  return res.json(sortedEmployees)
+})
+
+app.get("/level", async (req, res) => {
+  const query = req.query.search
+
+  const sortedEmployees = await EmployeeModel.find({ level: {$regex: `${query}`, $options: "i"}})
+  return res.json(sortedEmployees)
+})
+
 app.post("/api/employees/", async (req, res, next) => {
   const employee = req.body;
 

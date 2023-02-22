@@ -6,6 +6,16 @@ const fetchEmployees = (signal) => {
   return fetch("/api/employees", { signal }).then((res) => res.json());
 };
 
+const fetchEmployeesByPosition = (query) => {
+  fetch(`/position?search=${query}`, {}).then((res) => res.json())
+  console.log(query)
+}
+
+const fetchEmployeesByLevel = (query) => {
+  console.log(query)
+  fetch(`/level?search=${query}`, {}).then((res) => res.json())
+}
+
 const deleteEmployee = (id) => {
   return fetch(`/api/employees/${id}`, { method: "DELETE" }).then((res) =>
     res.json()
@@ -32,28 +42,36 @@ const EmployeeList = () => {
     });
     setData((employees) => {
       return employees.filter((employee) => employee._id !== id);
-    });
-   
+    });   
   };
-
-// const randomNr = () => {
-//   let number = Math.floor(Math.random() * (190 - 140 + 1)) + 140;
-//   return number;
-// }
-
-// const saveHeight = (id) => {
-//   randomNr()
-//   updateBoolean(id)
-// }
 
   const handleChangeBoolean = (employee, id) => {
     employee.present = !employee.present
     updateBoolean(employee, id)
 
     setData((employees) => {
-      return employees.filter((employee) => employee._id !== id);
-    
+      return employees.filter((employee) => employee._id !== id);    
     });
+  }
+
+  const sortPosition = (e) => {
+    fetchEmployeesByPosition(e.target.value)
+    .then((data) => {
+      setData(data)
+    })
+    .catch((error) => {
+      throw error;
+    })
+  }
+
+  const sortLevel = (e) => {
+    fetchEmployeesByLevel(e.target.value)
+    .then((data) => {
+      setData(data)
+    })
+    .catch((error) => {
+      throw error;
+    })
   }
 
 
@@ -81,7 +99,7 @@ const EmployeeList = () => {
     return <Loading />;
   }
 
-  return <EmployeeTable /*randomNr={randomNr}*/ employees={data} onDelete={handleDelete} onChange={handleChangeBoolean}/>;
+  return <EmployeeTable employees={data} onDelete={handleDelete} onChange={handleChangeBoolean} sortLevel={sortLevel} sortPosition={sortPosition}/>;
 };
 
 export default EmployeeList;
