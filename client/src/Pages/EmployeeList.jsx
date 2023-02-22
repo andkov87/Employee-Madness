@@ -6,14 +6,13 @@ const fetchEmployees = (signal) => {
   return fetch("/api/employees", { signal }).then((res) => res.json());
 };
 
-const fetchEmployeesByPosition = (query) => {
-  fetch(`/position?search=${query}`, {}).then((res) => res.json())
-  console.log(query)
+const fetchEmployeesByPosition = async (query) => {
+  return fetch(`/position?search=${query}`, {}).then((res) => res.json())
 }
 
 const fetchEmployeesByLevel = (query) => {
   console.log(query)
-  fetch(`/level?search=${query}`, {}).then((res) => res.json())
+  return fetch(`/level?search=${query}`, {}).then((res) => res.json())
 }
 
 const deleteEmployee = (id) => {
@@ -34,7 +33,7 @@ const updateBoolean = (employee, id) => {
 
 const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState();
 
   const handleDelete = (id) => {
     deleteEmployee(id).catch((err) => {
@@ -74,15 +73,12 @@ const EmployeeList = () => {
     })
   }
 
-
-
   useEffect(() => {
     const controller = new AbortController();
 
     fetchEmployees(controller.signal)
       .then((employees) => {
         setLoading(false);
-        console.log(employees)
         setData(employees);
       })
       .catch((error) => {

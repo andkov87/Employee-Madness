@@ -71,6 +71,7 @@ app.get("/position", async (req, res) => {
   const query = req.query.search
 
   const sortedEmployees = await EmployeeModel.find({ position: { $regex: `^${query}`, $options: "i"}})
+
   return res.json(sortedEmployees)
 })
 
