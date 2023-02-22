@@ -70,14 +70,14 @@ app.get('/missing', async (req, res) => {
 app.get("/position", async (req, res) => {
   const query = req.query.search
 
-  const sortedEmployees = await EmployeeModel.find({ position: {$regex: `^${query}`, $options: "i"}})
+  const sortedEmployees = await EmployeeModel.find({ position: { $regex: `^${query}`, $options: "i"}})
   return res.json(sortedEmployees)
 })
 
 app.get("/level", async (req, res) => {
   const query = req.query.search
 
-  const sortedEmployees = await EmployeeModel.find({ level: {$regex: `${query}`, $options: "i"}})
+  const sortedEmployees = await EmployeeModel.find({ level: { $regex: `^${query}`, $options: "i"}})
   return res.json(sortedEmployees)
 })
 
